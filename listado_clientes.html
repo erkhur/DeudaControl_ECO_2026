@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Listado de Clientes</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="min-h-screen flex flex-col bg-white text-slate-800">
+
+  <!-- HEADER -->
+  <header class="w-full border-b">
+    <div class="max-w-7xl mx-auto flex items-center justify-between px-4 py-3">
+      <div class="flex items-center gap-3">
+        <img src="assets/img/Logo_CyM.jpeg" alt="CyM Computadoras e Ingeniería" class="h-10 w-auto" />
+        <span class="text-sm font-semibold">COMPUTADORAS E INGENIERÍA</span>
+      </div>
+      <h1 class="font-bold tracking-wide">DEUDA CONTROL</h1>
+    </div>
+  </header>
+
+  <!-- MENU CLIENTES -->
+  <section class="max-w-7xl mx-auto w-full px-4 py-6">
+    <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+      <h2 class="font-semibold">MENU CLIENTES</h2>
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+        <a href="registro_clientes.html" class="bg-blue-500 text-white text-center py-2 rounded-lg font-semibold">REGISTRO</a>
+        <a href="listado_clientes.html" class="bg-blue-500 text-white text-center py-2 rounded-lg font-semibold">LISTADO</a>
+        <a href="actualizar_clientes.html" class="bg-blue-500 text-white text-center py-2 rounded-lg font-semibold">ACTUALIZAR</a>
+        <a href="dashboard.html" class="bg-blue-500 text-white text-center py-2 rounded-lg font-semibold">MENU PRINCIPAL</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- LISTADO -->
+  <main class="flex-1 max-w-7xl mx-auto w-full px-4">
+    <h3 class="text-center font-semibold mb-4">LISTADO DE CLIENTES</h3>
+
+    <div class="border rounded-lg overflow-x-auto">
+      <table class="min-w-full text-sm">
+        <thead class="border-b bg-slate-50">
+          <tr>
+            <th class="px-3 py-2 text-left">RUC/DNI</th>
+            <th class="px-3 py-2 text-left">RAZÓN SOCIAL / NOMBRE</th>
+            <th class="px-3 py-2 text-left">DIRECCIÓN</th>
+            <th class="px-3 py-2 text-left">NOMBRE CONTACTO</th>
+            <th class="px-3 py-2 text-left">CELULAR</th>
+            <th class="px-3 py-2 text-left">EMAIL</th>
+            <th class="px-3 py-2 text-left">ESTADO</th>
+            <th class="px-3 py-2"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- filas dinámicas -->
+        </tbody>
+      </table>
+
+      <div class="flex justify-end p-3">
+        <button class="bg-blue-500 text-white px-4 py-2 rounded-lg text-sm">CAMB. EST.</button>
+      </div>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="border-t mt-6">
+    <div class="max-w-7xl mx-auto px-4 py-4 flex flex-col sm:flex-row justify-between text-sm">
+      <span>©2026 - Desarrollado por ECO</span>
+      <span>Avenida España 2642 - Trujillo</span>
+    </div>
+  </footer>
+
+</body>
+</html>

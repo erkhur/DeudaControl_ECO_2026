@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Registro de Clientes | DeudaControl</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="min-h-screen flex flex-col bg-white">
+
+  <!-- Header -->
+  <header class="w-full px-6 py-4 border-b flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <img 
+        src="assets/img/Logo_CyM.jpeg"
+        alt="CyM Computadoras e Ingeniería"
+        class="h-10 w-auto"
+      />
+    </div>
+
+    <span class="text-sm font-semibold text-gray-700">
+      DEUDA CONTROL
+    </span>
+  </header>
+
+  <!-- Menu Clientes -->
+  <section class="px-6 py-4">
+    <div class="flex items-center gap-4 flex-wrap">
+
+      <span class="font-semibold text-gray-800">
+        MENU CLIENTES
+      </span>
+
+      <a
+        href="cliente.html"
+        class="bg-blue-500 text-white px-6 py-2 rounded-md font-semibold"
+      >
+        REGISTRO
+      </a>
+
+      <button class="bg-blue-500 text-white px-6 py-2 rounded-md font-semibold">
+        LISTADO
+      </button>
+
+      <button class="bg-blue-500 text-white px-6 py-2 rounded-md font-semibold">
+        ACTUALIZAR
+      </button>
+
+      <a
+        href="dashboard.html"
+        class="bg-blue-500 text-white px-6 py-2 rounded-md font-semibold"
+      >
+        MENU PRINCIPAL
+      </a>
+
+    </div>
+  </section>
+
+  <!-- Formulario -->
+  <main class="flex-grow px-6">
+
+    <h2 class="text-center font-semibold text-gray-800 mb-6">
+      REGISTRO DE CLIENTES
+    </h2>
+
+    <!-- Datos Cliente -->
+    <div class="space-y-4 max-w-5xl">
+
+      <div class="flex items-center gap-4">
+        <label class="w-32 font-semibold">RUC/DNI:</label>
+        <input type="text" class="bg-blue-400 h-8 w-64 rounded-sm" />
+      </div>
+
+      <div class="flex items-center gap-4">
+        <label class="w-32 font-semibold">
+          RAZÓN SOCIAL/<br>NOMBRE :
+        </label>
+        <input type="text" class="bg-blue-400 h-8 w-full rounded-sm" />
+      </div>
+
+      <div class="flex items-center gap-4">
+        <label class="w-32 font-semibold">DIRECCIÓN:</label>
+        <input type="text" class="bg-blue-400 h-8 w-full rounded-sm" />
+      </div>
+
+      <hr class="my-6">
+
+      <span class="font-semibold underline">CONTACTO:</span>
+
+      <div class="flex items-center gap-4 mt-4">
+        <label class="w-32 font-semibold">NOMBRE:</label>
+        <input type="text" class="bg-blue-400 h-8 w-full rounded-sm" />
+      </div>
+
+      <div class="flex items-center gap-4">
+        <label class="w-32 font-semibold">TELEFONO:</label>
+        <input type="text" class="bg-blue-400 h-8 w-64 rounded-sm" />
+      </div>
+
+      <div class="flex items-center gap-4">
+        <label class="w-32 font-semibold">EMAIL:</label>
+        <input type="email" class="bg-blue-400 h-8 w-full rounded-sm" />
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="w-full px-6 py-3 border-t text-sm text-gray-500 mt-6">
+    <div class="flex flex-col md:flex-row justify-between">
+      <span>©2026 - Desarrollado por ECO</span>
+      <span>Avenida España 2642 - Trujillo</span>
+    </div>
+  </footer>
+
+</body>
+</html>
