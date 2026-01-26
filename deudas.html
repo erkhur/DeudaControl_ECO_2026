@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Registro de Clientes | DeudaControl</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="min-h-screen flex flex-col bg-white">
+
+    <!-- Header -->
+    <header class="w-full px-6 py-4 border-b flex items-center justify-between">
+        <div class="flex items-center gap-3">
+            <img src="./assets/img/Logo_CyM.jpeg" alt="CyM Computadoras e Ingeniería" class="h-10 w-auto" />
+        </div>
+
+        <span class="text-sm font-semibold text-gray-700">
+            DEUDA CONTROL
+        </span>
+    </header>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main class="flex-grow">
+
+        <!-- Menu Cuentas x Cobrar -->
+        <section class="px-6 py-4 mb-12">
+            <div class="flex items-center gap-4 flex-wrap">
+
+                <span class="font-semibold text-gray-800">
+                    MENU CTAS POR COBRAR
+                </span>
+
+                <button class="bg-blue-500 text-white px-6 py-2 rounded-md font-semibold">
+                    REGISTRO DEUDA
+                </button>
+
+                <button class="bg-blue-500 text-white px-6 py-2 rounded-md font-semibold">
+                    PAGO CUOTA
+                </button>
+
+                <button class="bg-blue-500 text-white px-6 py-2 rounded-md font-semibold">
+                    EDITAR DEUDA
+                </button>
+
+                <button id="btnMenuPrincipal" class="bg-blue-500 text-white px-6 py-2 rounded-md font-semibold">
+                    MENU PRINCIPAL
+                    </button>
+            </div>
+        </section>
+
+        <!-- Aquí luego irá tu contenido (formularios, tablas, etc.) -->
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="w-full px-6 py-3 bg-white border-t text-sm text-gray-500">
+        <div class="flex flex-col md:flex-row justify-between">
+            <span>©2026 - Desarrollado por ECO</span>
+            <span>Avenida España 2642 - Trujillo</span>
+        </div>
+    </footer>
+
+    <script src="./JS/deudas/deudas.js"></script>
+    <script src="./JS/deudas/editardeuda.js"></script>
+    <script src="./JS/deudas/pagocuotas.js"></script>
+
+</body>
+
+</html>
