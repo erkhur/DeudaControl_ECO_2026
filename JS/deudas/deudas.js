@@ -25,6 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const tablaResumenCuerpo = document.getElementById("tablaResumenCuerpo");
     const monedaSelect = document.getElementById("monedaComprobante");
     const montoPendienteTxt = document.getElementById("montoPendienteModal");
+    const fechaEmisionInput = document.getElementById("fechaEmision");
 
     let clienteSeleccionado = null;
     let cuotasTemporales = [];
@@ -36,6 +37,15 @@ document.addEventListener("DOMContentLoaded", () => {
         const option = document.createElement("option");
         option.value = c.nombreCliente;
         listaClientes.appendChild(option);
+    });
+
+    // Validación de fecha de emisión al momento de ingresar (evento change)
+    fechaEmisionInput.addEventListener("change", () => {
+        const hoy = new Date().toLocaleDateString('en-CA'); // Formato YYYY-MM-DD
+        if (fechaEmisionInput.value > hoy) {
+            alert("La fecha de emisión no puede ser mayor que la fecha actual.");
+            fechaEmisionInput.value = ""; // Limpiar para volver a pedir
+        }
     });
 
     // Mostrar formulario al elegir cliente válido
@@ -57,14 +67,23 @@ document.addEventListener("DOMContentLoaded", () => {
     btnGenerarCuotas.addEventListener("click", (e) => {
         e.preventDefault();
         
-        const fechaE = document.getElementById("fechaEmision").value;
+        const fechaE = fechaEmisionInput.value;
         const serie = document.getElementById("serieComprobante").value.trim().toUpperCase();
         const numero = document.getElementById("nroComprobante").value.trim();
         const nCuotas = parseInt(document.getElementById("nroCuotas").value);
         const montoT = parseFloat(document.getElementById("montoTotal").value);
+        const moneda = monedaSelect.value;
+        const hoy = new Date().toLocaleDateString('en-CA');
 
-        if (!fechaE || !serie || !numero || isNaN(montoT) || isNaN(nCuotas) || nCuotas < 1) {
-            alert("Complete todos los datos del comprobante correctamente.");
+        // Validación: Campos llenos
+        if (!clienteSeleccionado || !fechaE || !serie || !numero || isNaN(montoT) || montoT <= 0 || isNaN(nCuotas) || nCuotas < 1) {
+            alert("Error: Todos los campos del comprobante son obligatorios y deben contener valores válidos.");
+            return;
+        }
+
+        // Validación: Fecha de emisión no mayor a la actual (doble verificación)
+        if (fechaE > hoy) {
+            alert("Error: La fecha de emisión no puede ser mayor que la fecha actual.");
             return;
         }
 
@@ -110,12 +129,20 @@ document.addEventListener("DOMContentLoaded", () => {
         const fechaV = document.getElementById("cuotaFechaInput").value;
         const fechaEmision = document.getElementById("fechaEmision").value;
         const totalCuotas = parseInt(document.getElementById("nroCuotas").value);
+        const montoTotalComprobante = parseFloat(document.getElementById("montoTotal").value);
 
         if (isNaN(montoC) || !fechaV) {
             alert("Ingrese datos válidos.");
             return;
         }
 
+        // Validación: cuotaMonto no debe ser mayor a montoTotalComprobante
+        if (montoC > montoTotalComprobante) {
+            alert(`Error: El monto de la cuota no puede exceder el monto total del comprobante (${montoTotalComprobante.toFixed(2)}).`);
+            return;
+        }
+
+        // Validación de fechas
         if (fechaV <= fechaEmision) {
             alert("La fecha de vencimiento debe ser mayor a la emisión.");
             return;
