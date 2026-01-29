@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Registro de Deudas | DeudaControl</title>
+    <title>Gestión de Deudas | DeudaControl</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         .modal { 
@@ -20,6 +20,7 @@
             align-items: center; 
             justify-content: center;
         }
+        .active-nav { background-color: #1e40af !important; border: 2px solid white; }
     </style>
 </head>
 
@@ -37,85 +38,115 @@
     <main class="flex-grow p-6">
         <section class="mb-8">
             <div class="flex items-center gap-4 flex-wrap">
-                <span class="font-semibold text-gray-800">MENU CTAS POR COBRAR</span>
-                <button class="bg-blue-600 text-white px-6 py-2 rounded-md font-semibold">REGISTRO DEUDA</button>
-                <button class="bg-blue-500 text-white px-6 py-2 rounded-md font-semibold">PAGO CUOTA</button>
-                <button class="bg-blue-500 text-white px-6 py-2 rounded-md font-semibold">EDITAR DEUDA</button>
+                <span class="font-semibold text-gray-800 uppercase text-xs w-full mb-2">Menú Ctas por Cobrar</span>
+                <button id="btnNavRegistro" class="active-nav bg-blue-500 text-white px-6 py-2 rounded-md font-semibold transition-all">REGISTRO DEUDA</button>
+                <button id="btnNavPago" class="bg-blue-500 text-white px-6 py-2 rounded-md font-semibold transition-all">PAGO CUOTA</button>
+                <button class="bg-blue-500 text-white px-6 py-2 rounded-md font-semibold opacity-50 cursor-not-allowed">EDITAR DEUDA</button>
                 <button id="btnMenuPrincipal" class="bg-blue-500 text-white px-6 py-2 rounded-md font-semibold">MENU PRINCIPAL</button>
             </div>
         </section>
 
-        <section id="seccionRegistro" class="border p-6 rounded-lg shadow-sm bg-gray-50">
-            <h2 class="text-center font-bold mb-6 text-xl">REGISTRO DEUDA</h2>
-            
-            <div class="flex items-center gap-2 border-2 border-blue-400 p-2 mb-6 bg-white">
-                <label class="font-bold text-sm min-w-fit text-blue-800 uppercase">Cliente :</label>
-                <input type="text" id="inputCliente" list="listaClientes" class="w-full bg-blue-100 text-blue-900 font-bold px-2 py-1 outline-none border-none" placeholder="Escriba para buscar cliente...">
-                <datalist id="listaClientes"></datalist>
-            </div>
+        <div id="viewRegistro">
+            <section id="seccionRegistro" class="border p-6 rounded-lg shadow-sm bg-gray-50">
+                <h2 class="text-center font-bold mb-6 text-xl uppercase">Registro Deuda</h2>
+                
+                <div class="flex items-center gap-2 border-2 border-blue-400 p-2 mb-6 bg-white">
+                    <label class="font-bold text-sm min-w-fit text-blue-800 uppercase">Cliente :</label>
+                    <input type="text" id="inputCliente" list="listaClientes" class="w-full bg-blue-100 text-blue-900 font-bold px-2 py-1 outline-none border-none" placeholder="Escriba para buscar cliente...">
+                    <datalist id="listaClientes"></datalist>
+                </div>
 
-            <div id="formComprobante" class="grid grid-cols-1 md:grid-cols-3 gap-4 hidden bg-white p-4 rounded border">
-                <div>
-                    <label class="block text-sm font-bold text-gray-700">Fecha Emisión:</label>
-                    <input type="date" id="fechaEmision" class="w-full border p-2 rounded">
+                <div id="formComprobante" class="grid grid-cols-1 md:grid-cols-3 gap-4 hidden bg-white p-4 rounded border">
+                    <div>
+                        <label class="block text-sm font-bold text-gray-700">Fecha Emisión:</label>
+                        <input type="date" id="fechaEmision" class="w-full border p-2 rounded">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-gray-700">Serie Comprobante:</label>
+                        <input type="text" id="serieComprobante" class="w-full border p-2 rounded uppercase">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-gray-700">Nro Comprobante:</label>
+                        <input type="number" id="nroComprobante" class="w-full border p-2 rounded">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-gray-700">Moneda:</label>
+                        <select id="monedaComprobante" class="w-full border p-2 rounded bg-white font-bold">
+                            <option value="S/.">Soles (S/.)</option>
+                            <option value="US$">Dólares (US$)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-gray-700">Monto Total:</label>
+                        <input type="number" step="0.01" id="montoTotal" class="w-full border p-2 rounded">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-gray-700">Nro de Cuotas:</label>
+                        <input type="number" id="nroCuotas" min="1" class="w-full border p-2 rounded">
+                    </div>
+                    <div class="flex items-end md:col-span-3">
+                        <button id="btnGenerarCuotas" class="w-full bg-blue-500 text-white py-2 rounded font-bold hover:bg-blue-600 transition">Ingresar Cuotas</button>
+                    </div>
                 </div>
-                <div>
-                    <label class="block text-sm font-bold text-gray-700">Serie Comprobante:</label>
-                    <input type="text" id="serieComprobante" class="w-full border p-2 rounded uppercase">
-                </div>
-                <div>
-                    <label class="block text-sm font-bold text-gray-700">Nro Comprobante:</label>
-                    <input type="number" id="nroComprobante" class="w-full border p-2 rounded">
-                </div>
-                <div>
-                    <label class="block text-sm font-bold text-gray-700">Moneda:</label>
-                    <select id="monedaComprobante" class="w-full border p-2 rounded bg-white font-bold">
-                        <option value="S/.">Soles (S/.)</option>
-                        <option value="US$">Dólares (US$)</option>
-                    </select>
-                </div>
-                <div>
-                    <label class="block text-sm font-bold text-gray-700">Monto Total:</label>
-                    <input type="number" step="0.01" id="montoTotal" class="w-full border p-2 rounded">
-                </div>
-                <div>
-                    <label class="block text-sm font-bold text-gray-700">Nro de Cuotas:</label>
-                    <input type="number" id="nroCuotas" min="1" class="w-full border p-2 rounded">
-                </div>
-                <div class="flex items-end md:col-span-3">
-                    <button id="btnGenerarCuotas" class="w-full bg-blue-500 text-white py-2 rounded font-bold hover:bg-blue-600 transition">Ingresar Cuotas</button>
-                </div>
-            </div>
-        </section>
+            </section>
 
-        <section id="seccionResumen" class="mt-8 hidden">
-            <h3 class="font-bold mb-2 text-blue-800 uppercase">Detalle de Cuotas:</h3>
-            <table class="w-full border-collapse border border-gray-300 bg-white text-sm">
-                <thead>
-                    <tr class="bg-blue-600 text-white">
-                        <th class="border p-2">CUOTA #</th>
-                        <th class="border p-2">VENCIMIENTO</th>
-                        <th class="border p-2">MONTO</th>
-                    </tr>
-                </thead>
-                <tbody id="tablaResumenCuerpo" class="text-center font-bold"></tbody>
-            </table>
-            <div class="flex justify-end gap-4 mt-6">
-                <button id="btnCancelar" class="bg-red-500 text-white px-8 py-2 rounded font-bold">Cancelar</button>
-                <button id="btnGuardarTodo" class="bg-blue-700 text-white px-8 py-2 rounded font-bold">Guardar Todo</button>
-            </div>
-        </section>
+            <section id="seccionResumen" class="mt-8 hidden">
+                <h3 class="font-bold mb-2 text-blue-800 uppercase">Resumen Cuotas a Registrar:</h3>
+                <table class="w-full border-collapse border border-gray-300 bg-white text-sm">
+                    <thead>
+                        <tr class="bg-blue-600 text-white uppercase text-xs">
+                            <th class="border p-2">Cuota #</th>
+                            <th class="border p-2">Vencimiento</th>
+                            <th class="border p-2">Monto</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tablaResumenCuerpo" class="text-center font-bold"></tbody>
+                </table>
+                <div class="flex justify-end gap-4 mt-6">
+                    <button id="btnCancelar" class="bg-red-500 text-white px-8 py-2 rounded font-bold uppercase">Cancelar</button>
+                    <button id="btnGuardarTodo" class="bg-blue-700 text-white px-8 py-2 rounded font-bold uppercase">Guardar Registro</button>
+                </div>
+            </section>
+        </div>
+
+        <div id="viewPago" class="hidden">
+            <section class="border p-6 rounded-lg shadow-sm bg-gray-50">
+                <h2 class="text-center font-bold mb-6 text-xl uppercase text-blue-900">Módulo de Pago de Cuotas</h2>
+                
+                <div class="flex items-center gap-2 border-2 border-blue-600 p-2 mb-6 bg-white">
+                    <label class="font-bold text-sm min-w-fit text-blue-800 uppercase">Buscar Cliente con Deuda :</label>
+                    <input type="text" id="inputClientePago" list="listaClientesDeudores" class="w-full bg-blue-50 text-blue-900 font-bold px-2 py-1 outline-none border-none" placeholder="Seleccione cliente para ver sus cuotas...">
+                    <datalist id="listaClientesDeudores"></datalist>
+                </div>
+
+                <div id="contenedorGridPago" class="hidden overflow-x-auto">
+                    <table class="w-full border-collapse border border-gray-300 bg-white text-sm">
+                        <thead>
+                            <tr class="bg-blue-600 text-white uppercase text-[10px]">
+                                <th class="border p-2">Fecha Comp</th>
+                                <th class="border p-2">Comprobante</th>
+                                <th class="border p-2">Moneda</th>
+                                <th class="border p-2">Total</th>
+                                <th class="border p-2">Cuota #</th>
+                                <th class="border p-2">Monto Cuota</th>
+                                <th class="border p-2">Vencimiento</th>
+                                <th class="border p-2">Acción</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tablaPagoCuerpo" class="text-center font-bold text-gray-700"></tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
     </main>
 
     <div id="modalCuotas" class="modal">
         <div class="bg-white p-8 rounded-lg w-full max-w-md shadow-2xl border-t-8 border-blue-600 relative">
             <div class="absolute top-2 right-4 text-right">
-                <span class="text-[10px] font-bold text-gray-500 uppercase">Pendiente</span>
+                <span class="text-[10px] font-bold text-gray-500 uppercase text-xs">Pendiente</span>
                 <p id="montoPendienteModal" class="text-sm font-black text-red-600"></p>
             </div>
-
             <h3 id="tituloModalCuota" class="font-bold text-xl mb-6 text-blue-800 text-center uppercase"></h3>
-            
             <div class="space-y-5">
                 <div>
                     <label class="block text-sm font-bold text-gray-600">Monto Cuota:</label>
@@ -138,5 +169,6 @@
     </footer>
 
     <script src="./JS/deudas/deudas.js"></script>
+    <script src="./JS/deudas/pagocuotas.js"></script>
 </body>
 </html>
